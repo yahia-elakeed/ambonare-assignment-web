@@ -36,4 +36,13 @@ public class StudentRestClient extends RestClient {
 				.post(Entity.entity(studentDto, MediaType.APPLICATION_JSON));
 
 	}
+
+	public StudentDto getStudent(String firstName, String lastName) {
+
+		String uri = STUDENT_REST_URI + "get-student?firstName=" + firstName + "&lastName=" + lastName;
+
+		LOGGER.info("Call rest API with URI " + uri + "to get student");
+
+		return getClient().target(uri).request(MediaType.APPLICATION_JSON).get(StudentDto.class);
+	}
 }

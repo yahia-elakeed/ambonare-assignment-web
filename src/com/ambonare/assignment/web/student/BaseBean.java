@@ -24,6 +24,15 @@ public abstract class BaseBean implements Serializable {
 		addMessage(FacesMessage.SEVERITY_INFO, message);
 	}
 
+	/**
+	 * Add error message
+	 * 
+	 * @param message
+	 */
+	protected void addErrorMessage(String message) {
+		addMessage(FacesMessage.SEVERITY_ERROR, message);
+	}
+
 	private void addMessage(Severity severity, String message) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, ""));
 	}

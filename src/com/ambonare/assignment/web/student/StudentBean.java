@@ -19,6 +19,9 @@ public class StudentBean extends BaseBean {
 
 	private StudentDto currentStudent;
 
+	private String searchFirstName;
+	private String searchLastName;
+
 	public StudentBean() {
 		studentRestClient = new StudentRestClient();
 		allStudents = studentRestClient.findAllStudents();
@@ -40,6 +43,22 @@ public class StudentBean extends BaseBean {
 		this.currentStudent = currentStudent;
 	}
 
+	public String getSearchFirstName() {
+		return searchFirstName;
+	}
+
+	public void setSearchFirstName(String searchFirstName) {
+		this.searchFirstName = searchFirstName;
+	}
+
+	public String getSearchLastName() {
+		return searchLastName;
+	}
+
+	public void setSearchLastName(String searchLastName) {
+		this.searchLastName = searchLastName;
+	}
+
 	public void prepareStudentForEdit(StudentDto currentStudent) {
 		this.currentStudent = currentStudent;
 		excuteJavaScript("$('#editStudentModal').modal('show');");
@@ -51,5 +70,19 @@ public class StudentBean extends BaseBean {
 		excuteJavaScript("$('#editStudentModal').modal('hide');");
 		addSuccessMessage("Student " + currentStudent.getFirstName() + " updated successfully");
 		currentStudent = null;
+	}
+
+	public void searchStudent() {
+
+		StudentDto studentDto = studentRestClient.getStudent(searchFirstName, searchLastName);
+
+		if (studentDto == null) {
+			addErrorMessage("Student not found");
+		} else {
+
+			this.currentStudent = studentDto;
+			excuteJavaScript("$('#editStudentModal').modal('show');");
+		}
+
 	}
 }
