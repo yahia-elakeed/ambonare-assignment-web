@@ -10,15 +10,15 @@ import dto.StudentDto;
 
 public class StudentRestClient extends RestClient {
 
-	private final String STUDENT_REST_URI;
+	private final String studentApiUrl;
 
 	public StudentRestClient() {
-		STUDENT_REST_URI = getRestUri() + "students/";
+		studentApiUrl = getRestUri() + API_PROPERTIES.getString("student.path");
 	}
 
 	public List<StudentDto> findAllStudents() {
 
-		String uri = STUDENT_REST_URI + "all";
+		String uri = studentApiUrl + "all";
 
 		LOGGER.info("Call rest API with URI " + uri + "to get all students");
 
@@ -28,7 +28,7 @@ public class StudentRestClient extends RestClient {
 
 	public void saveStudent(StudentDto studentDto) {
 
-		String uri = STUDENT_REST_URI + "save-student";
+		String uri = studentApiUrl + "save-student";
 
 		LOGGER.info("Call rest API with URI " + uri + "to save or update student");
 
@@ -39,7 +39,7 @@ public class StudentRestClient extends RestClient {
 
 	public StudentDto getStudent(String firstName, String lastName) {
 
-		String uri = STUDENT_REST_URI + "get-student?firstName=" + firstName + "&lastName=" + lastName;
+		String uri = studentApiUrl + "get-student?firstName=" + firstName + "&lastName=" + lastName;
 
 		LOGGER.info("Call rest API with URI " + uri + "to get student");
 
